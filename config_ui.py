@@ -167,7 +167,7 @@ def read_config_file():
     return {}
 
 root = tk.Tk()
-root.title("Exemplo de Botão")
+root.title("Configurações")
 root.configure(bg="#333333")
 
 button_frame = tk.Frame(root, bg="#333333")
@@ -210,7 +210,15 @@ if "Name" in config and config["Name"]:
     except ValueError:
         pass
 
-largura = 280
-altura = 480
-root.geometry(f"{largura}x{altura}")
+screen_width = root.winfo_screenwidth()
+screen_height = root.winfo_screenheight()
+largura = 300
+altura = 500
+pos_x = 0
+pos_y = screen_height - altura
+root.configure(bg="#333333")
+root.geometry(f"{largura}x{altura}+{pos_x}+{pos_y}")
+root.wm_maxsize(300, 500)
+root.wm_minsize(300, 500)
+
 root.mainloop()
