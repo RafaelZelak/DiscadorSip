@@ -13,8 +13,18 @@ def initialize_db():
             id INTEGER PRIMARY KEY,
             sip_server TEXT NOT NULL,
             username TEXT NOT NULL,
+            extension TEXT NOT NULL,
             password TEXT NOT NULL,
             name TEXT DEFAULT NULL
+        )
+        """)
+        cursor.execute("""
+        CREATE TABLE IF NOT EXISTS atendimentos (
+            id INTEGER PRIMARY KEY,
+            Atendido BOOLEAN,
+            Numero TEXT,
+            inicio_ligacao DATETIME,
+            fim_ligacao DATETIME,
         )
         """)
         conn.commit()
@@ -36,7 +46,7 @@ def save_config(name, sip_server, username, extension, password, selected_user):
     with sqlite3.connect(DB_PATH) as conn:
         cursor = conn.cursor()
         cursor.execute("""
-        UPDATE sip_config SET sip_server=?, username=?, extension=?, password=?
+        UPDATE sip_config SET name=?, sip_server=?, username=?, extension=?, password=?
         WHERE username=?
         """, (name, sip_server, username, extension, password, selected_user))
         conn.commit()
